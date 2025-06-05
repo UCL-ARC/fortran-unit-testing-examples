@@ -85,9 +85,9 @@ contains
         input_matrix(:,2) = [4.0,5.0,6.0]
         input_matrix(:,3) = [7.0,8.0,9.0]
 
-        output_matrix(:,1) = [1.0,4.0,7.0]
-        output_matrix(:,2) = [2.0,5.0,8.0]
-        output_matrix(:,3) = [3.0,6.0,9.0]
+        output_matrix(1,:) = [1.0,2.0,3.0]
+        output_matrix(2,:) = [4.0,5.0,6.0]
+        output_matrix(3,:) = [7.0,8.0,9.0]
         transpose_matrix_test_data(3) = example_t(test_parameters_t(3, 3, input_matrix, output_matrix))
 
         deallocate(input_matrix)
@@ -101,18 +101,16 @@ contains
         input_matrix(:,1) = [0.0,0.0,0.0]
         input_matrix(:,2) = [0.0,0.0,0.0]
 
-        output_matrix(:,1) = [0.0, 0.0]
-        output_matrix(:,2) = [0.0, 0.0]
-        output_matrix(:,3) = [0.0, 0.0]
+        output_matrix(1,:) = [0.0,0.0,0.0]
+        output_matrix(2,:) = [0.0,0.0,0.0]
         transpose_matrix_test_data(4) = example_t(test_parameters_t(2, 3, input_matrix, output_matrix))
 
         ! Unsymetric matrix
         input_matrix(:,1) = [1.0,2.0,3.0]
         input_matrix(:,2) = [4.0,5.0,6.0]
 
-        output_matrix(:,1) = [1.0,4.0]
-        output_matrix(:,2) = [2.0,5.0]
-        output_matrix(:,3) = [3.0,6.0]
+        output_matrix(1,:) = [1.0,2.0,3.0]
+        output_matrix(2,:) = [4.0,5.0,6.0]
         transpose_matrix_test_data(5) = example_t(test_parameters_t(2, 3, input_matrix, output_matrix))
 
         deallocate(input_matrix)
