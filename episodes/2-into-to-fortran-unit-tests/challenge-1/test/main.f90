@@ -2,6 +2,7 @@ program test_main
     use veggies, only : test_item_t, test_that, run_tests
 
     use transpose_matrix_test, only : transpose_matrix_test_suite
+    use scale_matrix_test, only : scale_matrix_test_suite
     implicit none
 
     if (.not.run()) stop 1
@@ -12,9 +13,10 @@ contains
         logical :: passed
 
         type(test_item_t) :: tests
-        type(test_item_t) :: individual_tests(1)
+        type(test_item_t) :: individual_tests(2)
 
         individual_tests(1) = transpose_matrix_test_suite()
+        individual_tests(2) = scale_matrix_test_suite()
 
         tests = test_that(individual_tests)
 
