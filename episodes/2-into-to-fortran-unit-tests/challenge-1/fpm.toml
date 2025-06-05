@@ -1,6 +1,15 @@
 name = "episode-2-challenge-1"
 
+[dev-dependencies]
+veggies.git = "https://gitlab.com/everythingfunctional/veggies"
+veggies.tag = "main"
+
 [[executable]]
 name = "matrix_operations"
 source-dir = "src"
+main = "main.f90"
+
+[[test]]
+name = "matrix_operations_test"
+source-dir = "test"
 main = "main.f90"
