@@ -3,6 +3,9 @@ module cli
 
     public
 
+    !! @class cli_args_t
+    !!
+    !! @brief A class to store the parsed cli arguments
     type :: cli_args_t
         character(len=:), allocatable :: requested_operation
         integer :: nx1, ny1, nx2, ny2
@@ -12,7 +15,9 @@ module cli
 
 contains
 
+    !> Conveniece subroutine handle deallocation of parsed arguments
     subroutine deallocate_args(parsed_args)
+        !> The parsed arguments to be deallocated
         type(cli_args_t), intent(inout) :: parsed_args
 
         if (allocated(parsed_args%requested_operation)) then
@@ -28,8 +33,11 @@ contains
         end if
     end subroutine deallocate_args
 
+    !> Parse the command line arguments provided by the user
     subroutine parse_cli_args(parsed_args, stat)
+        !> The object in which to store the parsed cli arguments
         type(cli_args_t), intent(inout) :: parsed_args
+        !> A flag to rack the success status of the procedure. If successfull, stat = 0
         integer, intent(out) :: stat
 
         character(len=:), allocatable :: executable_string
@@ -132,8 +140,11 @@ contains
         end if
     end subroutine parse_cli_args
 
+    !> Get a string cli argument from the provided index
     subroutine get_string_cli_arg(arg_index, cli_string)
+        !> The index of the command line to get the string from
         integer, intent(in) :: arg_index
+        !> The character array in which to store the string
         character(len=:), allocatable, intent(inout) :: cli_string
 
         integer :: argl
@@ -143,8 +154,12 @@ contains
         call get_command_argument(arg_index, cli_string)
     end subroutine get_string_cli_arg
 
+    !> Get a matrix cli argument from the provided index
+    !! Assumes the argument is in the flat form `int,int,int,int`
     subroutine get_matrix_cli_arg(arg_index, matrix)
+        !> The index of the command line to get the matrix from
         integer, intent(in) :: arg_index
+        !> The real array in which to store the matrix
         real, dimension(:,:), allocatable, intent(inout) :: matrix
 
         integer :: argl, required_matrix_size, actual_matrix_size, stat
@@ -177,8 +192,11 @@ contains
         end if
     end subroutine get_matrix_cli_arg
 
+    !> Get a integer cli argument from the provided index
     subroutine get_integer_cli_arg(arg_index, integer_value)
+        !> The index of the command line to get the matrix from
         integer, intent(in) :: arg_index
+        !> The integer in which to store the integer
         integer, intent(out) :: integer_value
 
         integer :: argl
@@ -191,8 +209,11 @@ contains
         deallocate(a)
     end subroutine get_integer_cli_arg
 
+    !> Get a real cli argument from the provided index
     subroutine get_real_cli_arg(arg_index, real_value)
+        !> The index of the command line to get the matrix from
         integer, intent(in) :: arg_index
+        !> The real in which to store the real
         real, intent(out) :: real_value
 
         integer :: argl

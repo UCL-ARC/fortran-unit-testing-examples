@@ -7,8 +7,11 @@ module matrix_operations
 
 contains
 
+    !> Transpose a given matrix
     subroutine transpose_matrix(matrix, transposed)
+        !> The matrix to be transposed
         real, intent(in) :: matrix(:,:)
+        !> The resultant transposed matrix
         real, intent(out) :: transposed(size(matrix, 2), size(matrix, 1))
         integer :: i, j
 
@@ -19,9 +22,13 @@ contains
         end do
     end subroutine transpose_matrix
 
+    !> Scale a matrix by a given factor
     subroutine scale_matrix(matrix, factor, scaled)
+        !> The matrix to be scaled
         real, intent(in) :: matrix(:,:)
+        !> The factor by which to scale the matrix
         real, intent(in) :: factor
+        !> The resultant scaled matrix
         real, intent(out) :: scaled(size(matrix, 1), size(matrix, 2))
         integer :: i, j
 
@@ -32,9 +39,13 @@ contains
         end do
     end subroutine scale_matrix
 
+    !> Add two matrices together
     subroutine add_matrices(matrix1, matrix2, result)
+        !> The first matrix to be summed
         real, intent(in) :: matrix1(:,:)
+        !> The second matrix to be summed
         real, intent(in) :: matrix2(:,:)
+        !> The resultant summed matrix
         real, intent(out) :: result(size(matrix1, 1), size(matrix1, 2))
         integer :: i, j
 
@@ -50,9 +61,13 @@ contains
         end do
     end subroutine add_matrices
 
+    !> Multiply two matrices together
     subroutine multiply_matrices(matrix1, matrix2, result)
+        !> The first matrix to be multiplied
         real, intent(in) :: matrix1(:,:)
+        !> The second matrix to be multiplied
         real, intent(in) :: matrix2(:,:)
+        !> The resultant multiplied matrix
         real, intent(out) :: result(size(matrix1, 1), size(matrix2, 2))
         integer :: i, j, k
 

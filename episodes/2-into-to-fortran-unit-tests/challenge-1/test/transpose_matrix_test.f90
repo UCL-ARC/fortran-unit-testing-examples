@@ -16,7 +16,7 @@ module transpose_matrix_test
     private
     public :: transpose_matrix_test_suite
 
-    !! @class test_parameters_t
+    !> @class test_parameters_t
     !!
     !! @brief A class to store test parameters
     type, extends(input_t) :: test_parameters_t
@@ -32,8 +32,13 @@ contains
 
     !> A constructor for the test_parameters_t type
     pure function test_parameters_constructor(nx, ny, matrix, expected_result) result(test_parameters)
-        integer, intent(in) :: nx, ny
+        !> The length of the x axis of the matrix
+        integer, intent(in) :: nx
+        !> The length of the y axis of the matrix
+        integer, intent(in) :: ny
+        !> The matrix to be transposed
         real, dimension(:,:), allocatable, intent(in) :: matrix
+        !> The expected transposed form on the matrix
         real, dimension(:,:), allocatable, intent(in) :: expected_result
 
         type(test_parameters_t) :: test_parameters
@@ -123,13 +128,10 @@ contains
     end function transpose_matrix_test_suite
 
     !> A unit test for the matrix_operations::transpose_matrix subroutine.
-    !!
-    !! @param inputs - An instance of the test_parameters_t containing function
-    !!                 inputs and expected outputs.
-    !!
-    !! @returns result_ - The result of the test (pass or fail) of type result_t
     function test_transpose_matrix(input) result(result_)
+        !> An instance of the test_parameters_t containing function inputs and expected outputs.
         class(input_t), intent(in) :: input
+        !> The result of the test (pass or fail) of type result_t
         type(result_t) :: result_
 
         real, dimension(:,:), allocatable :: actual_result

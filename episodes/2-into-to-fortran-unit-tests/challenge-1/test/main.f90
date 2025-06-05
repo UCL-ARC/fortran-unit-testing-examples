@@ -1,13 +1,13 @@
 program test_main
     use veggies, only : test_item_t, test_that, run_tests
 
-    ! If you wish to run the provided solution replace maths_test with maths_test_solution in the line below
     use transpose_matrix_test, only : transpose_matrix_test_suite
     implicit none
 
     if (.not.run()) stop 1
 
 contains
+    !> Runs the entire suite of tests
     function run() result(passed)
         logical :: passed
 
