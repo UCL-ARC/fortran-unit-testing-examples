@@ -71,7 +71,7 @@ contains
             ! matrix 1
             call get_integer_cli_arg(2, parsed_args%nx1)
             call get_integer_cli_arg(3, parsed_args%ny1)
-            allocate(parsed_args%matrix1(parsed_args%nx1, parsed_args%ny1))
+            allocate(parsed_args%matrix1(parsed_args%ny1, parsed_args%nx1))
             call get_matrix_cli_arg(4, parsed_args%matrix1)
 
         elseif (command_argument_count() == 5) then ! scale or add operation
@@ -89,7 +89,7 @@ contains
                 ! matrix 1
                 call get_integer_cli_arg(2, parsed_args%nx1)
                 call get_integer_cli_arg(3, parsed_args%ny1)
-                allocate(parsed_args%matrix1(parsed_args%nx1, parsed_args%ny1))
+                allocate(parsed_args%matrix1(parsed_args%ny1, parsed_args%nx1))
                 call get_matrix_cli_arg(4, parsed_args%matrix1)
                 ! scale factor
                 call get_real_cli_arg(5, parsed_args%scale_factor)
@@ -98,10 +98,10 @@ contains
                 ! matrix 1
                 call get_integer_cli_arg(2, parsed_args%nx1)
                 call get_integer_cli_arg(3, parsed_args%ny1)
-                allocate(parsed_args%matrix1(parsed_args%nx1, parsed_args%ny1))
+                allocate(parsed_args%matrix1(parsed_args%ny1, parsed_args%nx1))
                 call get_matrix_cli_arg(4, parsed_args%matrix1)
                 ! matrix 2
-                allocate(parsed_args%matrix2(parsed_args%nx1, parsed_args%ny1))
+                allocate(parsed_args%matrix2(parsed_args%ny1, parsed_args%nx1))
                 call get_matrix_cli_arg(5, parsed_args%matrix2)
 
             end if
@@ -117,12 +117,12 @@ contains
             ! matrix 1
             call get_integer_cli_arg(2, parsed_args%nx1)
             call get_integer_cli_arg(3, parsed_args%ny1)
-            allocate(parsed_args%matrix1(parsed_args%nx1, parsed_args%ny1))
+            allocate(parsed_args%matrix1(parsed_args%ny1, parsed_args%nx1))
             call get_matrix_cli_arg(4, parsed_args%matrix1)
             ! matrix 2
             call get_integer_cli_arg(5, parsed_args%nx2)
             call get_integer_cli_arg(6, parsed_args%ny2)
-            allocate(parsed_args%matrix2(parsed_args%nx2, parsed_args%ny2))
+            allocate(parsed_args%matrix2(parsed_args%ny2, parsed_args%nx2))
             call get_matrix_cli_arg(7, parsed_args%matrix2)
 
         else
