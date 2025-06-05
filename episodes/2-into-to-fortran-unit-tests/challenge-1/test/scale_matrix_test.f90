@@ -61,12 +61,12 @@ contains
         end do
     end function test_parameters_constructor
 
-    !> The test suite for the matrix_operations module tests
+    !> The test suite for the matrix_operations::scale_matrix subroutine tests
     function scale_matrix_test_suite() result(tests)
         type(test_item_t) :: tests
 
         real, dimension(:,:), allocatable :: input_matrix, output_matrix
-        type(example_t), dimension(7) :: scale_matrix_test_data
+        type(example_t), dimension(7) :: test_data
 
         ! 3x3 Matrices tests
         allocate(input_matrix(3,3))
@@ -80,14 +80,14 @@ contains
         output_matrix(:,1) = [2.0,0.0,0.0]
         output_matrix(:,2) = [0.0,2.0,0.0]
         output_matrix(:,3) = [0.0,0.0,2.0]
-        scale_matrix_test_data(1) = example_t(test_parameters_t(3, 3, input_matrix, 2.0, output_matrix))
+        test_data(1) = example_t(test_parameters_t(3, 3, input_matrix, 2.0, output_matrix))
 
         ! Zero Matrix
         input_matrix(:,1) = [0.0,0.0,0.0]
         input_matrix(:,2) = [0.0,0.0,0.0]
         input_matrix(:,3) = [0.0,0.0,0.0]
-        scale_matrix_test_data(2) = example_t(test_parameters_t(3, 3, input_matrix, 5.0, input_matrix))
-        scale_matrix_test_data(3) = example_t(test_parameters_t(3, 3, input_matrix, -23.0, input_matrix))
+        test_data(2) = example_t(test_parameters_t(3, 3, input_matrix, 5.0, input_matrix))
+        test_data(3) = example_t(test_parameters_t(3, 3, input_matrix, -23.0, input_matrix))
 
         ! Negative matrix elements
         input_matrix(:,1) = [-1.0,2.0,3.0]
@@ -97,7 +97,7 @@ contains
         output_matrix(:,1) = [2.0,-4.0,-6.0]
         output_matrix(:,2) = [8.0,-10.0,-12.0]
         output_matrix(:,3) = [-14.0,16.0,-18.0]
-        scale_matrix_test_data(4) = example_t(test_parameters_t(3, 3, input_matrix, -2.0, output_matrix))
+        test_data(4) = example_t(test_parameters_t(3, 3, input_matrix, -2.0, output_matrix))
 
         deallocate(input_matrix)
         deallocate(output_matrix)
@@ -109,8 +109,8 @@ contains
         ! Zero Matrix
         input_matrix(:,1) = [0.0,0.0,0.0]
         input_matrix(:,2) = [0.0,0.0,0.0]
-        scale_matrix_test_data(5) = example_t(test_parameters_t(2, 3, input_matrix, 233.0, input_matrix))
-        scale_matrix_test_data(6) = example_t(test_parameters_t(2, 3, input_matrix, -3412.0, input_matrix))
+        test_data(5) = example_t(test_parameters_t(2, 3, input_matrix, 233.0, input_matrix))
+        test_data(6) = example_t(test_parameters_t(2, 3, input_matrix, -3412.0, input_matrix))
 
         ! Negative matrix elements
         input_matrix(:,1) = [1.0,-2.0,3.0]
@@ -118,7 +118,7 @@ contains
 
         output_matrix(:,1) = [-0.5,1.0,-1.5]
         output_matrix(:,2) = [2.0,-2.5,-3.0]
-        scale_matrix_test_data(7) = example_t(test_parameters_t(2, 3, input_matrix, -0.5, output_matrix))
+        test_data(7) = example_t(test_parameters_t(2, 3, input_matrix, -0.5, output_matrix))
 
         deallocate(input_matrix)
         deallocate(output_matrix)
@@ -127,7 +127,7 @@ contains
                     "matrix_operations::scale_matrix", &
                     [ it( &
                         "works as expected", &
-                        scale_matrix_test_data, &
+                        test_data, &
                         test_scale_matrix) &
                     ])
     end function scale_matrix_test_suite

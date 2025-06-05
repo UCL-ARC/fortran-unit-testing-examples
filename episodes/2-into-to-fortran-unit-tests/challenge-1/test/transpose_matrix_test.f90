@@ -57,12 +57,12 @@ contains
         end do
     end function test_parameters_constructor
 
-    !> The test suite for the matrix_operations module tests
+    !> The test suite for the matrix_operations::transpose_matrix subroutine tests
     function transpose_matrix_test_suite() result(tests)
         type(test_item_t) :: tests
 
         real, dimension(:,:), allocatable :: input_matrix, output_matrix
-        type(example_t), dimension(5) :: transpose_matrix_test_data
+        type(example_t), dimension(5) :: test_data
 
         ! 3x3 Matrices tests
         allocate(input_matrix(3,3))
@@ -72,13 +72,13 @@ contains
         input_matrix(:,1) = [1.0,0.0,0.0]
         input_matrix(:,2) = [0.0,1.0,0.0]
         input_matrix(:,3) = [0.0,0.0,1.0]
-        transpose_matrix_test_data(1) = example_t(test_parameters_t(3, 3, input_matrix, input_matrix))
+        test_data(1) = example_t(test_parameters_t(3, 3, input_matrix, input_matrix))
 
         ! Zero Matrix
         input_matrix(:,1) = [0.0,0.0,0.0]
         input_matrix(:,2) = [0.0,0.0,0.0]
         input_matrix(:,3) = [0.0,0.0,0.0]
-        transpose_matrix_test_data(2) = example_t(test_parameters_t(3, 3, input_matrix, input_matrix))
+        test_data(2) = example_t(test_parameters_t(3, 3, input_matrix, input_matrix))
 
         ! Unsymetric matrix
         input_matrix(:,1) = [1.0,2.0,3.0]
@@ -88,7 +88,7 @@ contains
         output_matrix(1,:) = [1.0,2.0,3.0]
         output_matrix(2,:) = [4.0,5.0,6.0]
         output_matrix(3,:) = [7.0,8.0,9.0]
-        transpose_matrix_test_data(3) = example_t(test_parameters_t(3, 3, input_matrix, output_matrix))
+        test_data(3) = example_t(test_parameters_t(3, 3, input_matrix, output_matrix))
 
         deallocate(input_matrix)
         deallocate(output_matrix)
@@ -103,7 +103,7 @@ contains
 
         output_matrix(1,:) = [0.0,0.0,0.0]
         output_matrix(2,:) = [0.0,0.0,0.0]
-        transpose_matrix_test_data(4) = example_t(test_parameters_t(2, 3, input_matrix, output_matrix))
+        test_data(4) = example_t(test_parameters_t(2, 3, input_matrix, output_matrix))
 
         ! Unsymetric matrix
         input_matrix(:,1) = [1.0,2.0,3.0]
@@ -111,7 +111,7 @@ contains
 
         output_matrix(1,:) = [1.0,2.0,3.0]
         output_matrix(2,:) = [4.0,5.0,6.0]
-        transpose_matrix_test_data(5) = example_t(test_parameters_t(2, 3, input_matrix, output_matrix))
+        test_data(5) = example_t(test_parameters_t(2, 3, input_matrix, output_matrix))
 
         deallocate(input_matrix)
         deallocate(output_matrix)
@@ -120,7 +120,7 @@ contains
                     "matrix_operations::transpose_matrix", &
                     [ it( &
                         "works as expected", &
-                        transpose_matrix_test_data, &
+                        test_data, &
                         test_transpose_matrix) &
                     ])
     end function transpose_matrix_test_suite
