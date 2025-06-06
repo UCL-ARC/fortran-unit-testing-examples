@@ -47,12 +47,12 @@ contains
         test_parameters%nx = nx
         test_parameters%ny = ny
 
-        allocate(test_parameters%matrix(ny, nx))
-        allocate(test_parameters%expected_result(nx, ny))
+        allocate(test_parameters%matrix(nx, ny))
+        allocate(test_parameters%expected_result(ny, nx))
         do y = 1, ny
             do x = 1, nx
-                test_parameters%matrix(y, x) = matrix(y, x)
-                test_parameters%expected_result(x, y) = expected_result(x, y)
+                test_parameters%matrix(x, y) = matrix(x, y)
+                test_parameters%expected_result(y, x) = expected_result(y, x)
             end do
         end do
     end function test_parameters_constructor
@@ -69,48 +69,48 @@ contains
         allocate(output_matrix(3,3))
 
         ! Identity
-        input_matrix(:,1) = [1.0,0.0,0.0]
-        input_matrix(:,2) = [0.0,1.0,0.0]
-        input_matrix(:,3) = [0.0,0.0,1.0]
+        input_matrix(1,:) = [1.0,0.0,0.0]
+        input_matrix(2,:) = [0.0,1.0,0.0]
+        input_matrix(3,:) = [0.0,0.0,1.0]
         test_data(1) = example_t(test_parameters_t(3, 3, input_matrix, input_matrix))
 
         ! Zero Matrix
-        input_matrix(:,1) = [0.0,0.0,0.0]
-        input_matrix(:,2) = [0.0,0.0,0.0]
-        input_matrix(:,3) = [0.0,0.0,0.0]
+        input_matrix(1,:) = [0.0,0.0,0.0]
+        input_matrix(2,:) = [0.0,0.0,0.0]
+        input_matrix(3,:) = [0.0,0.0,0.0]
         test_data(2) = example_t(test_parameters_t(3, 3, input_matrix, input_matrix))
 
         ! Unsymetric matrix
-        input_matrix(:,1) = [1.0,2.0,3.0]
-        input_matrix(:,2) = [4.0,5.0,6.0]
-        input_matrix(:,3) = [7.0,8.0,9.0]
+        input_matrix(1,:) = [1.0,2.0,3.0]
+        input_matrix(2,:) = [4.0,5.0,6.0]
+        input_matrix(3,:) = [7.0,8.0,9.0]
 
-        output_matrix(1,:) = [1.0,2.0,3.0]
-        output_matrix(2,:) = [4.0,5.0,6.0]
-        output_matrix(3,:) = [7.0,8.0,9.0]
+        output_matrix(:,1) = [1.0,2.0,3.0]
+        output_matrix(:,2) = [4.0,5.0,6.0]
+        output_matrix(:,3) = [7.0,8.0,9.0]
         test_data(3) = example_t(test_parameters_t(3, 3, input_matrix, output_matrix))
 
         deallocate(input_matrix)
         deallocate(output_matrix)
 
         ! 2x3 Matrices tests
-        allocate(input_matrix(3,2))
-        allocate(output_matrix(2,3))
+        allocate(input_matrix(2,3))
+        allocate(output_matrix(3,2))
 
         ! Zero Matrix
-        input_matrix(:,1) = [0.0,0.0,0.0]
-        input_matrix(:,2) = [0.0,0.0,0.0]
+        input_matrix(1,:) = [0.0,0.0,0.0]
+        input_matrix(2,:) = [0.0,0.0,0.0]
 
-        output_matrix(1,:) = [0.0,0.0,0.0]
-        output_matrix(2,:) = [0.0,0.0,0.0]
+        output_matrix(:,1) = [0.0,0.0,0.0]
+        output_matrix(:,2) = [0.0,0.0,0.0]
         test_data(4) = example_t(test_parameters_t(2, 3, input_matrix, output_matrix))
 
         ! Unsymetric matrix
-        input_matrix(:,1) = [1.0,2.0,3.0]
-        input_matrix(:,2) = [4.0,5.0,6.0]
+        input_matrix(1,:) = [1.0,2.0,3.0]
+        input_matrix(2,:) = [4.0,5.0,6.0]
 
-        output_matrix(1,:) = [1.0,2.0,3.0]
-        output_matrix(2,:) = [4.0,5.0,6.0]
+        output_matrix(:,1) = [1.0,2.0,3.0]
+        output_matrix(:,2) = [4.0,5.0,6.0]
         test_data(5) = example_t(test_parameters_t(2, 3, input_matrix, output_matrix))
 
         deallocate(input_matrix)
@@ -136,7 +136,7 @@ contains
 
         select type (input)
         type is (test_parameters_t)
-            allocate(actual_result(input%nx, input%ny))
+            allocate(actual_result(input%ny, input%nx))
 
             call transpose_matrix(input%matrix, actual_result)
 

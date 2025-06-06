@@ -51,12 +51,12 @@ contains
         test_parameters%ny = ny
         test_parameters%scale_factor = scale_factor
 
-        allocate(test_parameters%matrix(ny, nx))
-        allocate(test_parameters%expected_result(ny, nx))
+        allocate(test_parameters%matrix(nx, ny))
+        allocate(test_parameters%expected_result(nx, ny))
         do y = 1, ny
             do x = 1, nx
-                test_parameters%matrix(y, x) = matrix(y, x)
-                test_parameters%expected_result(y, x) = expected_result(y, x)
+                test_parameters%matrix(x, y) = matrix(x, y)
+                test_parameters%expected_result(x, y) = expected_result(x, y)
             end do
         end do
     end function test_parameters_constructor
@@ -73,51 +73,51 @@ contains
         allocate(output_matrix(3,3))
 
         ! Identity
-        input_matrix(:,1) = [1.0,0.0,0.0]
-        input_matrix(:,2) = [0.0,1.0,0.0]
-        input_matrix(:,3) = [0.0,0.0,1.0]
+        input_matrix(1,:) = [1.0,0.0,0.0]
+        input_matrix(2,:) = [0.0,1.0,0.0]
+        input_matrix(3,:) = [0.0,0.0,1.0]
 
-        output_matrix(:,1) = [2.0,0.0,0.0]
-        output_matrix(:,2) = [0.0,2.0,0.0]
-        output_matrix(:,3) = [0.0,0.0,2.0]
+        output_matrix(1,:) = [2.0,0.0,0.0]
+        output_matrix(2,:) = [0.0,2.0,0.0]
+        output_matrix(3,:) = [0.0,0.0,2.0]
         test_data(1) = example_t(test_parameters_t(3, 3, input_matrix, 2.0, output_matrix))
 
         ! Zero Matrix
-        input_matrix(:,1) = [0.0,0.0,0.0]
-        input_matrix(:,2) = [0.0,0.0,0.0]
-        input_matrix(:,3) = [0.0,0.0,0.0]
+        input_matrix(1,:) = [0.0,0.0,0.0]
+        input_matrix(2,:) = [0.0,0.0,0.0]
+        input_matrix(3,:) = [0.0,0.0,0.0]
         test_data(2) = example_t(test_parameters_t(3, 3, input_matrix, 5.0, input_matrix))
         test_data(3) = example_t(test_parameters_t(3, 3, input_matrix, -23.0, input_matrix))
 
         ! Negative matrix elements
-        input_matrix(:,1) = [-1.0,2.0,3.0]
-        input_matrix(:,2) = [-4.0,5.0,6.0]
-        input_matrix(:,3) = [7.0,-8.0,9.0]
+        input_matrix(1,:) = [-1.0,2.0,3.0]
+        input_matrix(2,:) = [-4.0,5.0,6.0]
+        input_matrix(3,:) = [7.0,-8.0,9.0]
 
-        output_matrix(:,1) = [2.0,-4.0,-6.0]
-        output_matrix(:,2) = [8.0,-10.0,-12.0]
-        output_matrix(:,3) = [-14.0,16.0,-18.0]
+        output_matrix(1,:) = [2.0,-4.0,-6.0]
+        output_matrix(2,:) = [8.0,-10.0,-12.0]
+        output_matrix(3,:) = [-14.0,16.0,-18.0]
         test_data(4) = example_t(test_parameters_t(3, 3, input_matrix, -2.0, output_matrix))
 
         deallocate(input_matrix)
         deallocate(output_matrix)
 
         ! 2x3 Matrices tests
-        allocate(input_matrix(3,2))
-        allocate(output_matrix(3,2))
+        allocate(input_matrix(2,3))
+        allocate(output_matrix(2,3))
 
         ! Zero Matrix
-        input_matrix(:,1) = [0.0,0.0,0.0]
-        input_matrix(:,2) = [0.0,0.0,0.0]
+        input_matrix(1,:) = [0.0,0.0,0.0]
+        input_matrix(2,:) = [0.0,0.0,0.0]
         test_data(5) = example_t(test_parameters_t(2, 3, input_matrix, 233.0, input_matrix))
         test_data(6) = example_t(test_parameters_t(2, 3, input_matrix, -3412.0, input_matrix))
 
         ! Negative matrix elements
-        input_matrix(:,1) = [1.0,-2.0,3.0]
-        input_matrix(:,2) = [-4.0,5.0,6.0]
+        input_matrix(1,:) = [1.0,-2.0,3.0]
+        input_matrix(2,:) = [-4.0,5.0,6.0]
 
-        output_matrix(:,1) = [-0.5,1.0,-1.5]
-        output_matrix(:,2) = [2.0,-2.5,-3.0]
+        output_matrix(1,:) = [-0.5,1.0,-1.5]
+        output_matrix(2,:) = [2.0,-2.5,-3.0]
         test_data(7) = example_t(test_parameters_t(2, 3, input_matrix, -0.5, output_matrix))
 
         deallocate(input_matrix)
@@ -143,7 +143,7 @@ contains
 
         select type (input)
         type is (test_parameters_t)
-            allocate(actual_result(input%ny, input%nx))
+            allocate(actual_result(input%nx, input%ny))
 
             call scale_matrix(input%matrix, input%scale_factor, actual_result)
 

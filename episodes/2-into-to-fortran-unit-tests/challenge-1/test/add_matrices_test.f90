@@ -49,14 +49,14 @@ contains
         test_parameters%nx = nx
         test_parameters%ny = ny
 
-        allocate(test_parameters%matrix1(ny, nx))
-        allocate(test_parameters%matrix2(ny, nx))
-        allocate(test_parameters%expected_result(ny, nx))
+        allocate(test_parameters%matrix1(nx, ny))
+        allocate(test_parameters%matrix2(nx, ny))
+        allocate(test_parameters%expected_result(nx, ny))
         do y = 1, ny
             do x = 1, nx
-                test_parameters%matrix1(y, x) = matrix1(y, x)
-                test_parameters%matrix2(y, x) = matrix2(y, x)
-                test_parameters%expected_result(y, x) = expected_result(y, x)
+                test_parameters%matrix1(x, y) = matrix1(x, y)
+                test_parameters%matrix2(x, y) = matrix2(x, y)
+                test_parameters%expected_result(x, y) = expected_result(x, y)
             end do
         end do
     end function test_parameters_constructor
@@ -74,28 +74,28 @@ contains
         allocate(output_matrix(3,3))
 
         ! Identity
-        input_matrix1(:,1) = [0.0,0.0,0.0]
-        input_matrix1(:,2) = [0.0,0.0,0.0]
-        input_matrix1(:,3) = [0.0,0.0,0.0]
+        input_matrix1(1,:) = [0.0,0.0,0.0]
+        input_matrix1(2,:) = [0.0,0.0,0.0]
+        input_matrix1(3,:) = [0.0,0.0,0.0]
 
-        input_matrix2(:,1) = [1.0,0.0,0.1]
-        input_matrix2(:,2) = [4.0,-50.0,0.01]
-        input_matrix2(:,3) = [0.1,-0.03,0.3]
+        input_matrix2(1,:) = [1.0,0.0,0.1]
+        input_matrix2(2,:) = [4.0,-50.0,0.01]
+        input_matrix2(3,:) = [0.1,-0.03,0.3]
         test_data(1) = example_t(test_parameters_t(3, 3, input_matrix1, input_matrix1, input_matrix1))
         test_data(2) = example_t(test_parameters_t(3, 3, input_matrix1, input_matrix2, input_matrix2))
 
         ! Misc matrix
-        input_matrix1(:,1) = [412.0,23.0,0.0]
-        input_matrix1(:,2) = [0.1231,-120.0,0.0]
-        input_matrix1(:,3) = [1.0,0.0,0.1]
+        input_matrix1(1,:) = [412.0,23.0,0.0]
+        input_matrix1(2,:) = [0.1231,-120.0,0.0]
+        input_matrix1(3,:) = [1.0,0.0,0.1]
 
-        input_matrix2(:,1) = [4.0,-50.0,0.01]
-        input_matrix2(:,2) = [0.22,-3.0,3.0]
-        input_matrix2(:,3) = [0.1,-0.03,0.3]
+        input_matrix2(1,:) = [4.0,-50.0,0.01]
+        input_matrix2(2,:) = [0.22,-3.0,3.0]
+        input_matrix2(3,:) = [0.1,-0.03,0.3]
 
-        output_matrix(:,1) = [416.0,-27.0,0.01]
-        output_matrix(:,2) = [0.3431,-123.0,3.0]
-        output_matrix(:,3) = [1.1,-0.03,0.4]
+        output_matrix(1,:) = [416.0,-27.0,0.01]
+        output_matrix(2,:) = [0.3431,-123.0,3.0]
+        output_matrix(3,:) = [1.1,-0.03,0.4]
         test_data(3) = example_t(test_parameters_t(3, 3, input_matrix1, input_matrix2, output_matrix))
 
         deallocate(input_matrix1)
@@ -122,7 +122,7 @@ contains
 
         select type (input)
         type is (test_parameters_t)
-            allocate(actual_result(input%ny, input%nx))
+            allocate(actual_result(input%nx, input%ny))
 
             call add_matrices(input%matrix1, input%matrix2, actual_result)
 

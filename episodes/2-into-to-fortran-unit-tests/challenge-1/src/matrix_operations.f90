@@ -13,11 +13,11 @@ contains
         real, intent(in) :: matrix(:,:)
         !> The resultant transposed matrix
         real, intent(out) :: transposed(size(matrix, 2), size(matrix, 1))
-        integer :: i, j
+        integer :: x, y
 
-        do i = 1, size(matrix, 1)
-            do j = 1, size(matrix, 2)
-                transposed(j, i) = matrix(i, j)
+        do y = 1, size(matrix, 2)
+            do x = 1, size(matrix, 1)
+                transposed(y, x) = matrix(x, y)
             end do
         end do
     end subroutine transpose_matrix
@@ -30,11 +30,11 @@ contains
         real, intent(in) :: factor
         !> The resultant scaled matrix
         real, intent(out) :: scaled(size(matrix, 1), size(matrix, 2))
-        integer :: i, j
+        integer :: x, y
 
-        do j = 1, size(matrix, 2)
-            do i = 1, size(matrix, 1)
-                scaled(i, j) = matrix(i, j) * factor
+        do y = 1, size(matrix, 2)
+            do x = 1, size(matrix, 1)
+                scaled(x, y) = matrix(x, y) * factor
             end do
         end do
     end subroutine scale_matrix
@@ -47,16 +47,16 @@ contains
         real, intent(in) :: matrix2(:,:)
         !> The resultant summed matrix
         real, intent(out) :: result(size(matrix1, 1), size(matrix1, 2))
-        integer :: i, j
+        integer :: x, y
 
         if (size(matrix1) /= size(matrix2)) then
             print *, "Error: Matrices must have the same dimensions for addition."
             stop
         end if
 
-        do j = 1, size(matrix1, 2)
-            do i = 1, size(matrix1, 1)
-                result(i, j) = matrix1(i, j) + matrix2(i, j)
+        do y = 1, size(matrix1, 2)
+            do x = 1, size(matrix1, 1)
+                result(x, y) = matrix1(x, y) + matrix2(x, y)
             end do
         end do
     end subroutine add_matrices
@@ -69,18 +69,18 @@ contains
         real, intent(in) :: matrix2(:,:)
         !> The resultant multiplied matrix
         real, intent(out) :: result(size(matrix1, 1), size(matrix2, 2))
-        integer :: i, j, k
+        integer :: x1, y2, k
 
         if (size(matrix1, 2) /= size(matrix2, 1)) then
             print *, "Error: Number of columns in first matrix must equal number of rows in second matrix."
             stop
         end if
 
-        do j = 1, size(matrix2, 2)
-            do i = 1, size(matrix1, 1)
-                result(i, j) = 0.0
+        do y2 = 1, size(matrix2, 2)
+            do x1 = 1, size(matrix1, 1)
+                result(x1, y2) = 0.0
                 do k = 1, size(matrix1, 2)
-                    result(i, j) = result(i, j) + matrix1(i, k) * matrix2(k, j)
+                    result(x1, y2) = result(x1, y2) + matrix1(x1, k) * matrix2(k, y2)
                 end do
             end do
         end do
